@@ -1,4 +1,4 @@
-# ChorePet 🐾
+# ChorePet 
 
 A gamified chore management app for roommates that motivates task completion through virtual pet care.
 
@@ -28,3 +28,7 @@ ChorePet transforms household chores into an engaging experience where completin
 4. **Assign Chores**: Assign chores to specific roommates, with auto-assignment coming soon...
 5. **Complete Tasks**: Click on assigned chores to increment progress
 6. **Monitor Pet Health**: Watch your pet's health improve as chores are completed
+
+## A SneakPeek at the UI
+
+![Alt text](./ui-sneakpeek.png "")
