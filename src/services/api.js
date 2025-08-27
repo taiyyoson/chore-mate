@@ -23,9 +23,9 @@ async function apiRequest(endpoint, options = {}) {
   }
 }
 
-// User API functions
+
 export const userAPI = {
-  // Get all users
+
   getAll: () => apiRequest('/users'),
   
   // Get user by username
