@@ -1,0 +1,374 @@
+body {
+  margin: 0;
+  font-family: 'Michroma', sans-serif;
+  background-color: #dedfc4; /* earthy beige */
+  color: #2a2a2a;
+  overflow-x: hidden;
+}
+
+/* --- App Container --- */
+.app-container {
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+  max-width: 414px; /* iPhone width */
+  margin: 0 auto;
+  background-color: #dedfc4;
+}
+
+/* --- Banner and Logo --- */
+.banner-strip {
+  width: 100%;
+  height: 70px; 
+  background-color: #8db373;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 0 0 30px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* --- User Info --- */
+.user-info {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+/* --- Buttons --- */
+.small-button {
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-weight: 400;
+  background-color: rgba(255,255,255,0.9);
+  color: #2a2a2a;
+  border: none;
+  cursor: pointer;
+  font-family: 'Michroma', sans-serif;
+}
+
+.small-button-margin {
+  margin-left: 6px;
+}
+
+.chore-button {
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 400;
+  background-color: #8db373;
+  color: #2a2a2a;
+  border: none;
+  cursor: pointer;
+  font-family: 'Michroma', sans-serif;
+  margin: 10px;
+}
+
+.add-chore-margin {
+  margin-top: 20px;
+}
+
+.log-button {
+  font-size: 20px;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 400;
+  background-color: #8db373;
+  color: #2a2a2a;
+  cursor: pointer;
+  border: none;
+  font-family: 'Michroma', sans-serif;
+}
+
+.log-button-margin {
+  margin-left: 10px;
+}
+
+/* --- Login/Signup --- */
+.login-signup {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+.auth-buttons {
+  margin-bottom: 2rem;
+  margin-top: 3rem;
+}
+
+.auth-form {
+  margin-bottom: 1rem;
+}
+
+.auth-form input {
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #999;
+  font-family: 'Michroma', sans-serif;
+  margin-right: 10px;
+}
+
+/* --- Main Content --- */
+.main-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 120px 20px; /* Added bottom padding for fixed nav */
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Pet Section --- */
+.pet-section {
+  padding: 2rem;
+}
+
+.pet-panel {
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  margin-bottom: 30px;
+}
+
+
+
+.pet-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greeting {
+  color: #2a2a2a;
+  text-align: center;
+  font-family: 'Michroma', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.health {
+  font-size: 16px;
+  margin: 10px 0 20px 0;
+  color: #2a2a2a;
+  font-weight: 400;
+}
+
+/* --- Chores --- */
+.chores-container {
+  width: 100%;
+  max-width: 380px;
+  padding: 0 10px;
+}
+
+.chores-container h3 {
+  font-family: 'Michroma', sans-serif;
+  color: #2a2a2a;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.chore-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.chore-card {
+  background-color: #bcbf99;
+  margin: 0;
+  padding: 20px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-height: 60px;
+}
+
+.chore-card.clickable {
+  cursor: pointer;
+}
+
+.chore-card.clickable:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.chore-card.completed {
+  opacity: 0.6;
+  background-color: #a8ab88;
+}
+
+.chore-card.pending {
+  background-color: #bcbf99;
+}
+
+.chore-content {
+  display: flex;
+  font-family: 'Michroma', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-section {
+  background-color: #2a2a2a;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.chore-name {
+  flex: 1;
+  text-align: left;
+  margin: 0 20px;
+  font-size: 16px;
+}
+
+.separator {
+  display: none; /* Remove separator */
+}
+
+.roommate-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2a2a2a;
+  min-width: 30px;
+}
+
+/* --- Add Chore Form --- */
+.add-chore-form {
+  background-color: rgba(188, 191, 153, 0.9);
+  padding: 20px;
+  border-radius: 25px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.add-chore-form input,
+.add-chore-form select {
+  padding: 12px 16px;
+  border: 1px solid #999;
+  border-radius: 20px;
+  font-family: 'Michroma', sans-serif;
+  font-size: 14px;
+  background-color: white;
+}
+
+.form-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* --- Bottom Navigation (like in design) --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #8db373;
+  border-radius: 30px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  z-index: 15;
+  max-width: 300px;
+}
+
+.bottom-nav button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-family: 'Michroma', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  color: #2a2a2a;
+  font-weight: 400;
+}
+
+.bottom-nav .nav-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+@media (max-width: 500px) {
+  .app-container {
+    max-width: 100%;
+  }
+  
+  .logo {
+    font-size: 36px;
+    width: 250px;
+  }
+  
+  .banner-strip {
+    height: 160px;
+  }
+  
+  .auth-buttons {
+    margin-top: 12rem;
+  }
+  
+  .chore-card {
+    padding: 16px;
+  }
+  
+  .chore-name {
+    font-size: 14px;
+  }
+  
+  .progress-section {
+    width: 45px;
+    height: 45px;
+    font-size: 11px;
+  }
+}
