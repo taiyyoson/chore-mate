@@ -257,6 +257,11 @@ function App() {
                         {/* chore name */}
                         <div className="chore-name">{chore.name}</div>
 
+                        {/* days left for chore ##daysLeft needs to be filled, then can get rid of 5 */}
+                          <div className="chore-days">
+                            <div className="days-number">{chore.daysLeft} 5 </div>
+                            <div className="days-label">days left</div>
+                        </div>
                         {/* roommate initials */}
                         <div className="roommate-name">{chore.roommate.substring(0, 2).toUpperCase()}</div>
                       </div>
@@ -278,10 +283,6 @@ function App() {
                   >
                     <input type="text" value={newChore} onChange={e => setNewChore(e.target.value)} placeholder="New chore" />
                     <input type="number" min="1" value={newFrequency} onChange={e => setNewFrequency(e.target.value)} placeholder="Frequency" />
-                    <select value={newRoommate} onChange={e => setNewRoommate(e.target.value)}>
-                      <option value="" disabled>Select roommate</option>
-                      {users.map(u => <option key={u.username} value={u.username}>{u.username}</option>)}
-                    </select>
                     <div className="form-buttons">
                       <button className="small-button" onClick={addChore}>Submit</button>
                       <button className="small-button small-button-margin" onClick={() => setShowForm(false)}>Cancel</button>
@@ -295,8 +296,6 @@ function App() {
           {/* Bottom Navigation */}
           <div className="bottom-nav">
             <button onClick={() => setShowForm(true)}>+ Chore</button>
-            <button>+ Item</button>
-            <div className="nav-circle"></div>
           </div>
         </>
       )}
