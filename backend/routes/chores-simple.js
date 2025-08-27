@@ -123,49 +123,6 @@ router.put('/:id', (req, res) => {
   }
 });
 
-// PATCH /api/chores/:id/complete - Complete a chore (increment progress)
-router.patch('/:id/complete', (req, res) => {
-  try {
-    const db = loadDB();
-    
-    const choreIndex = db.chores.findIndex(c => c.id === req.params.id);
-    if (choreIndex === -1) {
-      return res.status(404).json({ error: 'Chore not found' });
-    }
-    
-    const chore = db.chores[choreIndex];
-    if (chore.completed) {
-      return res.status(400).json({ error: 'Chore already completed' });
-    }
-    
-    // Increment progress
-    chore.progress += 1;
-    
-    // Check if chore is now complete
-    if (chore.progress >= chore.frequency) {
-      chore.completed = true;
-      chore.completedAt = new Date().toISOString();
-      
-      // Reward the pet owner with health increase
-      const userIndex = db.users.findIndex(u => u.username === chore.roommate);
-      if (userIndex !== -1) {
-        db.users[userIndex].petHealth = Math.min(db.users[userIndex].petHealth + 10, 100);
-        db.users[userIndex].updatedAt = new Date().toISOString();
-      }
-    }
-    
-    chore.updatedAt = new Date().toISOString();
-    db.chores[choreIndex] = chore;
-    
-    saveDB(db);
-    res.json({
-      chore: chore,
-      petHealthUpdated: chore.completed
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // PATCH /api/chores/:id/reset - Reset chore progress
 router.patch('/:id/reset', (req, res) => {
