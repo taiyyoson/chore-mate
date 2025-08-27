@@ -54,7 +54,7 @@ import choreRoutesSimple from './routes/chores-simple.js';
 app.use('/api/users', userRoutesSimple);
 app.use('/api/chores', choreRoutesSimple);
 
-// Request logging middleware
+// middleware to log requests
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
