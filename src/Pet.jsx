@@ -68,29 +68,15 @@ function Pet({ health }) {
     }
   }, [health]);
 
-  // cycle frames
-  useEffect(() => {
-    const frames = animations[currentAnim];
-    let intervalId;
-  
-    // Start animation loop
-    intervalId = setInterval(() => {
-      setFrame((f) => (f + 1) % frames.length);
-    }, 600); // change every 600ms
-  
-    // Stop after 7 seconds and pick random frame
-    const timeoutId = setTimeout(() => {
-      clearInterval(intervalId);
-      const randomFrame = Math.floor(Math.random() * frames.length);
-      setFrame(randomFrame);
-    }, 7000); // stop after 7s
-  
-    // Cleanup
-    return () => {
-      clearInterval(intervalId);
-      clearTimeout(timeoutId);
-    };
-  }, [currentAnim]);
+ // cycle frames continuously
+ useEffect(() => {
+  const frames = animations[currentAnim];
+  const intervalId = setInterval(() => {
+    setFrame((f) => (f + 1) % frames.length);
+  }, 600); 
+
+  return () => clearInterval(intervalId);
+}, [currentAnim]);
 
   return (
     <div style={{marginTop: "5rem", textAlign: "center" , marginBottom: "5rem"}}>
