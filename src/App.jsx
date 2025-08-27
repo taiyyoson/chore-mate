@@ -1,29 +1,23 @@
 // --- Users / roommates ---
 // to log in use any user name below (Alice, Bob, Charlie)
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Pet from "./Pet.jsx";
+import { userAPI, choreAPI } from "./services/api.js";
 import "./App.css";
 import logo from "./assets/logo.png";
 import background from "./assets/background.png";
 
 function App() {
   // --- Users / roommates ---
-  const [users, setUsers] = useState([
-    { username: "Alice", petHealth: 60 },
-    { username: "Bob", petHealth: 0 },
-    { username: "Charlie", petHealth: 40 },
-
-  ]);
-
+  const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null); // null = not logged in
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // --- Chores ---
-  const [chores, setChores] = useState([
-    { id: 1, name: "Take out trash", frequency: 2, progress: 0, completed: false, roommate: "Alice" },
-    { id: 2, name: "Wash dishes", frequency: 2, progress: 0, completed: false, roommate: "Bob" },
-  ]);
+  const [chores, setChores] = useState([]);
 
   // --- Add Chore inputs ---
   const [newChore, setNewChore] = useState("");
@@ -37,82 +31,151 @@ function App() {
   const [loginName, setLoginName] = useState("");
   const [signupName, setSignupName] = useState("");
 
-  // --- Helper: generate next id ---
-  const nextId = () => Math.max(0, ...chores.map(c => c.id)) + 1;
+  // --- Load data from backend ---
+  useEffect(() => {
+    loadData();
+  }, []);
 
-  // --- Login / logout handlers ---
-  const handleLogin = () => {
-    if (users.find(u => u.username === loginName)) {
-      setCurrentUser(loginName);
-      setLoginName("");
-      setShowLogin(false);
-      setShowSignup(false);
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [usersData, choresData] = await Promise.all([
+        userAPI.getAll(),
+        choreAPI.getAll(false) // Get incomplete chores
+      ]);
+      setUsers(usersData);
+      setChores(choresData);
+      setError(null);
+    } catch (err) {
+      setError('Failed to load data from server');
+      console.error('Error loading data:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSignup = () => {
-    if (!signupName || users.find(u => u.username === signupName)) return;
-    setUsers([...users, { username: signupName, petHealth: 80 }]);
-    setCurrentUser(signupName);
-    setSignupName("");
-    setShowSignup(false);
-    setShowLogin(false);
+  // --- Login / logout handlers ---
+  const handleLogin = async () => {
+    try {
+      const user = await userAPI.getByUsername(loginName);
+      if (user) {
+        setCurrentUser(loginName);
+        setLoginName("");
+        setShowLogin(false);
+        setShowSignup(false);
+      }
+    } catch (err) {
+      setError('User not found');
+    }
+  };
+
+  const handleSignup = async () => {
+    if (!signupName) return;
+    try {
+      const newUser = await userAPI.create({ username: signupName, petHealth: 80 });
+      setUsers([...users, newUser]);
+      setCurrentUser(signupName);
+      setSignupName("");
+      setShowSignup(false);
+      setShowLogin(false);
+      setError(null);
+    } catch (err) {
+      setError('Username already exists or signup failed');
+    }
   };
 
   const handleLogout = () => setCurrentUser(null);
 
   // --- Add chore ---
-  const addChore = () => {
+  const addChore = async () => {
     if (!newChore || !newRoommate) return;
-    setChores([
-      ...chores,
-      { 
-        id: nextId(), 
-        name: newChore, 
-        frequency: parseInt(newFrequency, 10), 
-        progress: 0, 
-        completed: false, 
-        roommate: newRoommate 
-      }
-    ]);
-    setNewChore("");
-    setShowForm(false);
+    try {
+      const choreData = {
+        name: newChore,
+        frequency: parseInt(newFrequency, 10),
+        roommate: newRoommate
+      };
+      const newChoreObj = await choreAPI.create(choreData);
+      setChores([...chores, newChoreObj]);
+      setNewChore("");
+      setNewFrequency(0);
+      setNewRoommate("");
+      setShowForm(false);
+      setError(null);
+    } catch (err) {
+      setError('Failed to create chore');
+    }
   };
 
   // --- Incremental complete chore ---
-  const completeChore = (id) => {
-    setChores(prev =>
-      prev.map(c => {
-        if (c.id === id && !c.completed) {
-          const newProgress = c.progress + 1;
-          const isDone = newProgress >= c.frequency;
-
-          if (isDone) {
-            // reward pet when chore is fully complete
-            setUsers(prevUsers =>
-              prevUsers.map(u =>
-                u.username === currentUser
-                  ? { ...u, petHealth: Math.min(u.petHealth + 10, 100) }
-                  : u
-              )
-            );
-          }
-
-          return { ...c, progress: newProgress, completed: isDone };
-        }
-        return c;
-      })
-    );
+  const completeChore = async (id) => {
+    try {
+      const response = await choreAPI.complete(id);
+      const updatedChore = response.chore;
+      
+      // Update chores list
+      setChores(prev => prev.map(c => c.id === id ? updatedChore : c));
+      
+      // If pet health was updated, refresh users data
+      if (response.petHealthUpdated) {
+        const updatedUsers = await userAPI.getAll();
+        setUsers(updatedUsers);
+      }
+      
+      setError(null);
+    } catch (err) {
+      setError('Failed to complete chore');
+    }
   };
 
   // --- Delete chore ---
-  const deleteChore = (id) => setChores(prev => prev.filter(c => c.id !== id));
+  const deleteChore = async (id) => {
+    try {
+      await choreAPI.delete(id);
+      setChores(prev => prev.filter(c => c.id !== id));
+      setError(null);
+    } catch (err) {
+      setError('Failed to delete chore');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="app-container">
+        <div className="banner-strip">
+          <img src={logo} alt="ChoreMate logo" className="logo" />
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
       <div className="banner-strip">
         <img src={logo} alt="ChoreMate logo" className="logo" />
       </div>
+
+      {error && (
+        <div style={{ 
+          backgroundColor: '#ff4444', 
+          color: 'white', 
+          padding: '0.5rem', 
+          margin: '1rem',
+          borderRadius: '4px',
+          textAlign: 'center'
+        }}>
+          {error}
+          <button 
+            onClick={() => setError(null)} 
+            style={{ marginLeft: '1rem', background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       {/* --- Login / Signup --- */}
       {!currentUser ? (

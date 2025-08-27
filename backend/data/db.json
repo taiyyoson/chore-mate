@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "Alice",
+      "petHealth": 70,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-08-27T08:31:16.230Z"
+    },
+    {
+      "id": "2",
+      "username": "Bob",
+      "petHealth": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "username": "Charlie",
+      "petHealth": 40,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "chores": [
+    {
+      "id": "1",
+      "name": "Take out trash",
+      "frequency": 2,
+      "progress": 2,
+      "completed": true,
+      "roommate": "Alice",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-08-27T08:31:16.230Z",
+      "completedAt": "2025-08-27T08:31:16.229Z"
+    },
+    {
+      "id": "2",
+      "name": "Wash dishes",
+      "frequency": 2,
+      "progress": 0,
+      "completed": false,
+      "roommate": "Bob",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "completedAt": null
+    }
+  ]
+}
