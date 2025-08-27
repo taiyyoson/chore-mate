@@ -20,6 +20,20 @@
       "petHealth": 40,
       "createdAt": "2024-01-01T00:00:00.000Z",
       "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "1756283755595niq9k8kxv",
+      "username": "Taiyo",
+      "petHealth": 90,
+      "createdAt": "2025-08-27T08:35:55.595Z",
+      "updatedAt": "2025-08-27T08:36:30.051Z"
+    },
+    {
+      "id": "1756283975451wlzb83w2e",
+      "username": "Alina",
+      "petHealth": 80,
+      "createdAt": "2025-08-27T08:39:35.451Z",
+      "updatedAt": "2025-08-27T08:39:35.451Z"
     }
   ],
   "chores": [
@@ -43,6 +57,39 @@
       "roommate": "Bob",
       "createdAt": "2024-01-01T00:00:00.000Z",
       "updatedAt": "2024-01-01T00:00:00.000Z",
+      "completedAt": null
+    },
+    {
+      "id": "17562837842902xr4yw3bb",
+      "name": "Vacuum apartment",
+      "frequency": 3,
+      "roommate": "Taiyo",
+      "progress": 3,
+      "completed": true,
+      "createdAt": "2025-08-27T08:36:24.290Z",
+      "updatedAt": "2025-08-27T08:36:30.051Z",
+      "completedAt": "2025-08-27T08:36:30.049Z"
+    },
+    {
+      "id": "17562838064900l7mxvm2l",
+      "name": "Scrub Shower",
+      "frequency": 1,
+      "roommate": "Taiyo",
+      "progress": 0,
+      "completed": false,
+      "createdAt": "2025-08-27T08:36:46.490Z",
+      "updatedAt": "2025-08-27T08:36:46.490Z",
+      "completedAt": null
+    },
+    {
+      "id": "1756284038401m3tpfgsy5",
+      "name": "Restock cleaning supplies",
+      "frequency": 1,
+      "roommate": "Alina",
+      "progress": 0,
+      "completed": false,
+      "createdAt": "2025-08-27T08:40:38.401Z",
+      "updatedAt": "2025-08-27T08:40:38.401Z",
       "completedAt": null
     }
   ]

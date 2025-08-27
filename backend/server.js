@@ -54,6 +54,12 @@ import choreRoutesSimple from './routes/chores-simple.js';
 app.use('/api/users', userRoutesSimple);
 app.use('/api/chores', choreRoutesSimple);
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
