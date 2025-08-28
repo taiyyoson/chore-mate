@@ -71,6 +71,7 @@ function App() {
     }
   };
 
+  // --- Render 
   // --- Login / logout handlers ---
   const handleLogin = async () => {
     try {
