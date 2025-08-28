@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Pet from "./Pet.jsx";
 import { userAPI, choreAPI } from "./services/api.js";
 import "./App.css";
+import "./Form.css";
 import logo from "./assets/logo.png";
 import background from "./assets/background.png";
 
@@ -21,8 +22,8 @@ function App() {
 
   // --- Add Chore inputs ---
   const [newChore, setNewChore] = useState("");
-  const [newFrequency, setNewFrequency] = useState(0);
-  const [newRoommate, setNewRoommate] = useState("");
+  const [newFrequency, setNewFrequency] = useState(1); 
+  const [sliderValue, setSliderValue] = useState(3);   
   const [showForm, setShowForm] = useState(false);
 
   // --- Login / Signup toggles and inputs ---
@@ -30,6 +31,22 @@ function App() {
   const [showSignup, setShowSignup] = useState(false);
   const [loginName, setLoginName] = useState("");
   const [signupName, setSignupName] = useState("");
+
+  // Added: Form configuration data
+  const frequencyOptions = [
+    { value: 1, label: "Once a week", icon: "📅" },
+    { value: 2, label: "Twice a week", icon: "📅📅" },
+    { value: 3, label: "3x a week", icon: "🔄" },
+    { value: 7, label: "Daily", icon: "⭐" }
+  ];
+
+  const difficultyConfig = {
+    1: { text: "Quick & Easy", emoji: "😊" },
+    2: { text: "Light Work", emoji: "🙂" },
+    3: { text: "Moderate", emoji: "😐" },
+    4: { text: "Takes Effort", emoji: "😅" },
+    5: { text: "Major Task", emoji: "😰" }
+  };
 
   // --- Load data from backend ---
   useEffect(() => {
@@ -86,24 +103,28 @@ function App() {
 
   const handleLogout = () => setCurrentUser(null);
 
-  // --- Add chore ---
+  // --- Add chore --- 
   const addChore = async () => {
-    if (!newChore || !newRoommate) return;
+    if (!newChore) return; 
     try {
       const choreData = {
         name: newChore,
         frequency: parseInt(newFrequency, 10),
-        roommate: newRoommate
+        roommate: currentUser, // Automatically assign to current user
+        difficulty: sliderValue
       };
       const newChoreObj = await choreAPI.create(choreData);
       setChores([...chores, newChoreObj]);
+      
+      // Reset form values
       setNewChore("");
-      setNewFrequency(0);
-      setNewRoommate("");
+      setNewFrequency(1);    
+      setSliderValue(3);     
       setShowForm(false);
       setError(null);
     } catch (err) {
       setError('Failed to create chore');
+      console.error('Error creating chore:', err);
     }
   };
 
@@ -223,12 +244,10 @@ function App() {
           {/* ---- ONE COLUMN MAIN STACK ---- */}
           <div className="main-column">
             {/* Pet at the top */}
- 
-              <div className="pet-container">
-                <div className="health">health: {users.find(u => u.username === currentUser)?.petHealth}%</div>
-                <Pet health={users.find(u => u.username === currentUser)?.petHealth} />
-              </div>
-            
+            <div className="pet-container">
+              <div className="health">health: {users.find(u => u.username === currentUser)?.petHealth}%</div>
+              <Pet health={users.find(u => u.username === currentUser)?.petHealth} />
+            </div>
 
             {/* Chores under the pet */}
             <div className="chores-container">
@@ -257,11 +276,12 @@ function App() {
                         {/* chore name */}
                         <div className="chore-name">{chore.name}</div>
 
-                        {/* days left for chore ##daysLeft needs to be filled, then can get rid of 5 */}
-                          <div className="chore-days">
-                            <div className="days-number">{chore.daysLeft} 5 </div>
-                            <div className="days-label">days left</div>
+                        {/* days left for chore */}
+                        <div className="chore-days">
+                          <div className="days-number">{chore.daysLeft || 5}</div>
+                          <div className="days-label">days left</div>
                         </div>
+                        
                         {/* roommate initials */}
                         <div className="roommate-name">{chore.roommate.substring(0, 2).toUpperCase()}</div>
                       </div>
@@ -270,7 +290,7 @@ function App() {
                 </AnimatePresence>
               </div>
 
-              {/* Collapsible Add Chore Form - only show when form is open */}
+              {/*Chore Form - NO ROOMMATE SELECTION */}
               <AnimatePresence>
                 {showForm && (
                   <motion.div
@@ -281,11 +301,89 @@ function App() {
                     transition={{ duration: 0.3 }}
                     className="add-chore-form"
                   >
-                    <input type="text" value={newChore} onChange={e => setNewChore(e.target.value)} placeholder="New chore" />
-                    <input type="number" min="1" value={newFrequency} onChange={e => setNewFrequency(e.target.value)} placeholder="Frequency" />
+                    {/* Form Header */}
+                    <div className="form-header">
+                      <h3>Add New Chore</h3>
+                      <div className="form-divider"></div>
+                    </div>
+
+                    {/* Chore Name */}
+                    <div className="form-field">
+                      <label className="form-label">🏠 What needs to be done?</label>
+                      <input
+                        type="text"
+                        value={newChore}
+                        onChange={e => setNewChore(e.target.value)}
+                        placeholder="e.g., Take out trash, Do dishes..."
+                        className="form-input"
+                      />
+                    </div>
+
+                    {/* Frequency Selection */}
+                    <div className="form-field">
+                      <label className="form-label">📅 How often?</label>
+                      <div className="frequency-grid">
+                        {frequencyOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => setNewFrequency(option.value)}
+                            className={`frequency-option ${newFrequency === option.value ? 'selected' : ''}`}
+                          >
+                            <span className="frequency-icon">{option.icon}</span>
+                            <span>{option.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Difficulty/Value Slider */}
+                    <div className="form-field">
+                      <label className="form-label">⚡ How challenging is this?</label>
+                      <div className="difficulty-container">
+                        <div className="difficulty-display">
+                          <span className="difficulty-emoji">
+                            {difficultyConfig[sliderValue].emoji}
+                          </span>
+                          <span className={`difficulty-label level-${sliderValue}`}>
+                            {difficultyConfig[sliderValue].text}
+                          </span>
+                        </div>
+                        
+                        <div className="difficulty-slider-wrapper">
+                          <input
+                            type="range"
+                            min="1"
+                            max="5"
+                            value={sliderValue}
+                            onChange={e => setSliderValue(parseInt(e.target.value))}
+                            className={`difficulty-slider level-${sliderValue}`}
+                          />
+                          <div className="slider-labels">
+                            <span>Easy</span>
+                            <span>Hard</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Form Buttons */}
                     <div className="form-buttons">
-                      <button className="small-button" onClick={addChore}>Submit</button>
-                      <button className="small-button small-button-margin" onClick={() => setShowForm(false)}>Cancel</button>
+                      <button
+                        type="button"
+                        onClick={addChore}
+                        disabled={!newChore}
+                        className="form-submit-btn"
+                      >
+                        ✨ Create Chore
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowForm(false)}
+                        className="form-cancel-btn"
+                      >
+                        Cancel
+                      </button>
                     </div>
                   </motion.div>
                 )}

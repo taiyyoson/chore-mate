@@ -1,0 +1,352 @@
+.add-chore-form {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 25px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  /* Form Header */
+  .form-header {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #2a2a2a;
+  }
+  
+  .form-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .form-divider {
+    height: 3px;
+    width: 40px;
+    background-color: #8db373;
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+  
+  /* Form Field Groups */
+  .form-field {
+    margin-bottom: 20px;
+  }
+  
+  .form-field:last-of-type {
+    margin-bottom: 25px;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  
+  /* Enhanced Text Input */
+  .form-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 14px;
+    font-family: 'Michroma', sans-serif;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .form-input:focus {
+    border-color: #8db373;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(141, 179, 115, 0.1);
+  }
+  
+  .form-input::placeholder {
+    color: #999;
+    font-style: italic;
+  }
+  
+  /* Frequency Button Grid */
+  .frequency-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .frequency-option {
+    padding: 12px 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #fafafa;
+    color: #2a2a2a;
+    font-size: 11px;
+    font-family: 'Michroma', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+  }
+  
+  .frequency-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .frequency-option.selected {
+    border-color: #8db373;
+    background-color: #8db373;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(141, 179, 115, 0.3);
+  }
+  
+  .frequency-icon {
+    font-size: 16px;
+  }
+  
+  /* Roommate Select */
+  .form-select {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 14px;
+    font-family: 'Michroma', sans-serif;
+    background-color: #fafafa;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+  }
+  
+  .form-select:focus {
+    border-color: #8db373;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(141, 179, 115, 0.1);
+  }
+  
+  /* Difficulty Slider Container */
+  .difficulty-container {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+    
+  }
+  
+  .difficulty-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .difficulty-emoji {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .difficulty-label {
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  /* Difficulty levels */
+  .difficulty-label.level-1 { color: #4CAF50; }
+  .difficulty-label.level-2 { color: #8BC34A; }
+  .difficulty-label.level-3 { color: #FF9800; }
+  .difficulty-label.level-4 { color: #FF5722; }
+  .difficulty-label.level-5 { color: #F44336; }
+  
+  /* Enhanced Slider */
+  .difficulty-slider-wrapper {
+    position: relative;
+  }
+  
+  .difficulty-slider {
+    width: min(280px, 80%);
+    height: 8px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: background 0.3s ease;
+  }
+  
+  /* Slider track colors based on value */
+  .difficulty-slider.level-1 { background: linear-gradient(to right, #4CAF50 0%, #4CAF50 0%, #ddd 0%, #ddd 100%); }
+  .difficulty-slider.level-2 { background: linear-gradient(to right, #4CAF50 0%, #8BC34A 25%, #ddd 25%, #ddd 100%); }
+  .difficulty-slider.level-3 { background: linear-gradient(to right, #4CAF50 0%, #FF9800 50%, #ddd 50%, #ddd 100%); }
+  .difficulty-slider.level-4 { background: linear-gradient(to right, #4CAF50 0%, #FF5722 75%, #ddd 75%, #ddd 100%); }
+  .difficulty-slider.level-5 { background: linear-gradient(to right, #4CAF50 0%, #F44336 100%, #ddd 100%, #ddd 100%); }
+  
+  /* Webkit slider thumb */
+  .difficulty-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .difficulty-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+  
+  /* Firefox slider thumb */
+  .difficulty-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .difficulty-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+  
+  /* Slider thumb colors */
+  .difficulty-slider.level-1::-webkit-slider-thumb { background: #4CAF50; }
+  .difficulty-slider.level-2::-webkit-slider-thumb { background: #8BC34A; }
+  .difficulty-slider.level-3::-webkit-slider-thumb { background: #FF9800; }
+  .difficulty-slider.level-4::-webkit-slider-thumb { background: #FF5722; }
+  .difficulty-slider.level-5::-webkit-slider-thumb { background: #F44336; }
+  
+  .difficulty-slider.level-1::-moz-range-thumb { background: #4CAF50; }
+  .difficulty-slider.level-2::-moz-range-thumb { background: #8BC34A; }
+  .difficulty-slider.level-3::-moz-range-thumb { background: #FF9800; }
+  .difficulty-slider.level-4::-moz-range-thumb { background: #FF5722; }
+  .difficulty-slider.level-5::-moz-range-thumb { background: #F44336; }
+  
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 10px;
+    color: #999;
+  }
+
+.slidecontainer {
+    width: min(280px, 60%);
+    margin: 0 auto;
+    }
+  /* Enhanced Form Buttons */
+  .form-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .form-submit-btn {
+    background-color: #8db373;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Michroma', sans-serif;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .form-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(141, 179, 115, 0.4);
+  }
+  
+  .form-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  .form-submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .form-cancel-btn {
+    background-color: transparent;
+    color: #666;
+    border: 2px solid #e0e0e0;
+    padding: 14px 28px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Michroma', sans-serif;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.3s ease;
+  }
+  
+  .form-cancel-btn:hover {
+    border-color: #ccc;
+    color: #444;
+    transform: translateY(-1px);
+  }
+  
+  /* Animation classes for transitions */
+  .form-field-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  
+  .form-field-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    .add-chore-form {
+      padding: 20px;
+      margin: 15px;
+      border-radius: 20px;
+    }
+    
+    .frequency-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    
+    .frequency-option {
+      padding: 16px 12px;
+    }
+    
+    .form-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .form-submit-btn,
+    .form-cancel-btn {
+      width: 100%;
+    }
+  }

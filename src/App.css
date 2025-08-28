@@ -215,7 +215,14 @@ body {
 .chore-card.clickable {
   cursor: pointer;
 }
-
+.chore-days{
+  flex: 1;
+  text-align: left;
+  font-size: 15px; 
+}
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
 .chore-card.clickable:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
