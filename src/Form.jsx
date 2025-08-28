@@ -1,10 +1,6 @@
-// Updated form section for your App.js
-// Replace your current form section with this
 
-// Add these state variables to your component (if not already present)
 const [selectedRoommate, setSelectedRoommate] = useState("");
 
-// Add this data array near your other constants
 const frequencyOptions = [
   { value: 1, label: "Once a week", icon: "📅" },
   { value: 2, label: "Twice a week", icon: "📅📅" },
