@@ -31,9 +31,9 @@
     {
       "id": "1756283975451wlzb83w2e",
       "username": "Alina",
-      "petHealth": 80,
+      "petHealth": 100,
       "createdAt": "2025-08-27T08:39:35.451Z",
-      "updatedAt": "2025-08-27T08:39:35.451Z"
+      "updatedAt": "2025-08-28T04:18:33.556Z"
     }
   ],
   "chores": [
@@ -90,6 +90,61 @@
       "completed": false,
       "createdAt": "2025-08-27T08:40:38.401Z",
       "updatedAt": "2025-08-27T08:40:38.401Z",
+      "completedAt": null
+    },
+    {
+      "id": "1756351429677lsvgpzob7",
+      "name": "Trash",
+      "frequency": 3,
+      "roommate": "Alina",
+      "progress": 3,
+      "completed": true,
+      "createdAt": "2025-08-28T03:23:49.677Z",
+      "updatedAt": "2025-08-28T03:23:52.838Z",
+      "completedAt": "2025-08-28T03:23:52.835Z"
+    },
+    {
+      "id": "1756353122142j4wsfyt6k",
+      "name": "Bath",
+      "frequency": 2,
+      "roommate": "Alina",
+      "progress": 2,
+      "completed": true,
+      "createdAt": "2025-08-28T03:52:02.142Z",
+      "updatedAt": "2025-08-28T03:53:35.161Z",
+      "completedAt": "2025-08-28T03:53:35.158Z"
+    },
+    {
+      "id": "17563532112142frub0f6l",
+      "name": "trash",
+      "frequency": 1,
+      "roommate": "Alina",
+      "progress": 1,
+      "completed": true,
+      "createdAt": "2025-08-28T03:53:31.214Z",
+      "updatedAt": "2025-08-28T03:53:33.056Z",
+      "completedAt": "2025-08-28T03:53:33.056Z"
+    },
+    {
+      "id": "1756354712293bfpqxrc52",
+      "name": "Trash",
+      "frequency": 1,
+      "roommate": "Alina",
+      "progress": 1,
+      "completed": true,
+      "createdAt": "2025-08-28T04:18:32.293Z",
+      "updatedAt": "2025-08-28T04:18:33.556Z",
+      "completedAt": "2025-08-28T04:18:33.556Z"
+    },
+    {
+      "id": "1756354955721pc9bouxox",
+      "name": "Dishes",
+      "frequency": 3,
+      "roommate": "Alina",
+      "progress": 0,
+      "completed": false,
+      "createdAt": "2025-08-28T04:22:35.722Z",
+      "updatedAt": "2025-08-28T04:22:35.722Z",
       "completedAt": null
     }
   ]
