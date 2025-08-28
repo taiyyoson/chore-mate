@@ -25,14 +25,3 @@ jobs:
 
     - name: Build project
       run: npm run build
-
-    - name: Deploy to server
-      env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
-        SERVER_IP: ${{ secrets.SERVER_IP }}
-      run: |
-        echo "$DEPLOY_KEY" > deploy_key.pem
-        chmod 600 deploy_key.pem
-        scp -i deploy_key.pem -r ./build/* $SERVER_USER@$SERVER_IP:/var/www/html/
-        rm deploy_key.pem
