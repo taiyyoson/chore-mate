@@ -1,20 +1,6 @@
 
 const [selectedRoommate, setSelectedRoommate] = useState("");
 
-const frequencyOptions = [
-  { value: 1, label: "Once a week", icon: "📅" },
-  { value: 2, label: "Twice a week", icon: "📅📅" },
-  { value: 3, label: "3x a week", icon: "🔄" },
-  { value: 7, label: "Daily", icon: "⭐" }
-];
-
-const difficultyConfig = {
-  1: { text: "Quick & Easy", emoji: "😊" },
-  2: { text: "Light Work", emoji: "🙂" },
-  3: { text: "Moderate", emoji: "😐" },
-  4: { text: "Takes Effort", emoji: "😅" },
-  5: { text: "Major Task", emoji: "😰" }
-};
 
 <AnimatePresence>
   {showForm && (
