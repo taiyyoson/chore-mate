@@ -50,6 +50,9 @@ loadDB();
 import userRoutesSimple from './routes/users-simple.js';
 import choreRoutesSimple from './routes/chores-simple.js';
 
+// Serve static files from the React build
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+
 // Routes
 app.use('/api/users', userRoutesSimple);
 app.use('/api/chores', choreRoutesSimple);
@@ -75,9 +78,14 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Catch-all handler: serve React app for any non-API routes
+app.get('*', (req, res) => {
+  // Don't serve React app for API routes
+  if (req.path.startsWith('/api/')) {
+    res.status(404).json({ error: 'API route not found' });
+  } else {
+    res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
+  }
 });
 
 app.listen(PORT, () => {

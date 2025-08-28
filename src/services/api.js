@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = import.meta.env.DEV ? 'http://localhost:5001/api' : '/api';
 
 // Generic API function
 async function apiRequest(endpoint, options = {}) {
