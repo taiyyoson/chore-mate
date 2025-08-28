@@ -4,20 +4,23 @@
       "id": "1",
       "username": "Alice",
       "petHealth": 70,
+      "capacityScore": 2,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-27T08:31:16.230Z"
+      "updatedAt": "2025-08-28T07:03:00.069Z"
     },
     {
       "id": "2",
       "username": "Bob",
-      "petHealth": 0,
+      "petHealth": 10,
+      "capacityScore": 10,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2025-08-28T07:03:22.055Z"
     },
     {
       "id": "3",
       "username": "Charlie",
       "petHealth": 40,
+      "capacityScore": 10,
       "createdAt": "2024-01-01T00:00:00.000Z",
       "updatedAt": "2024-01-01T00:00:00.000Z"
     },
@@ -25,6 +28,7 @@
       "id": "1756283755595niq9k8kxv",
       "username": "Taiyo",
       "petHealth": 90,
+      "capacityScore": 10,
       "createdAt": "2025-08-27T08:35:55.595Z",
       "updatedAt": "2025-08-27T08:36:30.051Z"
     },
@@ -32,6 +36,7 @@
       "id": "1756283975451wlzb83w2e",
       "username": "Alina",
       "petHealth": 100,
+      "capacityScore": 10,
       "createdAt": "2025-08-27T08:39:35.451Z",
       "updatedAt": "2025-08-28T04:18:33.556Z"
     }
@@ -159,6 +164,34 @@
       "updatedAt": "2025-08-28T06:14:03.296Z",
       "completedAt": null,
       "deadline": "2025-09-04T06:14:03.296Z"
+    },
+    {
+      "id": "1756364580069ghrvbmk0b",
+      "name": "Test Auto-Assignment",
+      "frequency": 2,
+      "roommate": "Alice",
+      "progress": 0,
+      "completed": false,
+      "difficulty": 4,
+      "weight": 8,
+      "createdAt": "2025-08-28T07:03:00.069Z",
+      "updatedAt": "2025-08-28T07:03:00.069Z",
+      "completedAt": null,
+      "deadline": "2025-09-04T07:03:00.069Z"
+    },
+    {
+      "id": "1756364594787qehhm62ue",
+      "name": "Test Auto-Assignment 2",
+      "frequency": 1,
+      "roommate": "Bob",
+      "progress": 1,
+      "completed": true,
+      "difficulty": 3,
+      "weight": 3,
+      "createdAt": "2025-08-28T07:03:14.787Z",
+      "updatedAt": "2025-08-28T07:03:22.055Z",
+      "completedAt": "2025-08-28T07:03:22.055Z",
+      "deadline": "2025-09-04T07:03:14.787Z"
     }
   ]
 }
