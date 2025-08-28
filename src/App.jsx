@@ -89,7 +89,7 @@ function App() {
   const handleSignup = async () => {
     if (!signupName) return;
     try {
-      const newUser = await userAPI.create({ username: signupName, petHealth: 80 });
+      const newUser = await userAPI.create({ username: signupName, petHealth: 80, capacityScore: 30 });
       setUsers([...users, newUser]);
       setCurrentUser(signupName);
       setSignupName("");
@@ -110,11 +110,14 @@ function App() {
       const choreData = {
         name: newChore,
         frequency: parseInt(newFrequency, 10),
-        roommate: currentUser, // Automatically assign to current user
         difficulty: sliderValue
       };
       const newChoreObj = await choreAPI.create(choreData);
       setChores([...chores, newChoreObj]);
+      
+      // Reload users to reflect updated capacity scores
+      const updatedUsers = await userAPI.getAll();
+      setUsers(updatedUsers);
       
       // Reset form values
       setNewChore("");

@@ -48,6 +48,35 @@ function addDaysLeftToChore(chore) {
   return chore;
 }
 
+function calculateChoreWeight(difficulty, frequency) {
+  // Weight = difficulty (1-5) × frequency (1-7)
+  // Range: 1 (easy, once/week) to 35 (hardest, daily)
+  return (difficulty || 3) * (frequency || 1);
+}
+
+function findBestAssigneeByCapacity(users, choreWeight) {
+  // Find user with highest available capacity (capacityScore - current load)
+  let bestUser = null;
+  let highestAvailableCapacity = -1;
+  
+  for (const user of users) {
+    const availableCapacity = user.capacityScore;
+    if (availableCapacity >= choreWeight && availableCapacity > highestAvailableCapacity) {
+      highestAvailableCapacity = availableCapacity;
+      bestUser = user;
+    }
+  }
+  
+  // If no user has enough capacity, assign to user with most capacity anyway
+  if (!bestUser) {
+    bestUser = users.reduce((prev, current) => 
+      (current.capacityScore > prev.capacityScore) ? current : prev
+    );
+  }
+  
+  return bestUser;
+}
+
 // GET /api/chores - Get all chores
 router.get('/', (req, res) => {
   try {
@@ -85,13 +114,16 @@ router.get('/:id', (req, res) => {
 // POST /api/chores - Create new chore
 router.post('/', (req, res) => {
   try {
-    const { name, frequency, roommate, progress, difficulty } = req.body;
+    const { name, frequency, progress, difficulty } = req.body;
     const db = loadDB();
     
-    // Verify the roommate exists
-    const user = db.users.find(u => u.username === roommate);
-    if (!user) {
-      return res.status(400).json({ error: 'Roommate not found' });
+    // Calculate chore weight
+    const choreWeight = calculateChoreWeight(difficulty, frequency);
+    
+    // Auto-assign to best available user
+    const assignedUser = findBestAssigneeByCapacity(db.users, choreWeight);
+    if (!assignedUser) {
+      return res.status(400).json({ error: 'No users available for assignment' });
     }
     
     const now = new Date();
@@ -101,15 +133,23 @@ router.post('/', (req, res) => {
       id: generateId(),
       name,
       frequency,
-      roommate,
+      roommate: assignedUser.username,
       progress: progress || 0,
       completed: false,
       difficulty: difficulty || 3,
+      weight: choreWeight,
       createdAt: now.toISOString(),
       updatedAt: now.toISOString(),
       completedAt: null,
       deadline: deadline.toISOString()
     };
+    
+    // Update assignee's capacity score
+    const userIndex = db.users.findIndex(u => u.username === assignedUser.username);
+    if (userIndex !== -1) {
+      db.users[userIndex].capacityScore = Math.max(0, db.users[userIndex].capacityScore - choreWeight);
+      db.users[userIndex].updatedAt = now.toISOString();
+    }
     
     db.chores.push(chore);
     saveDB(db);
@@ -184,6 +224,18 @@ router.delete('/:id', (req, res) => {
       return res.status(404).json({ error: 'Chore not found' });
     }
     
+    const chore = db.chores[choreIndex];
+    
+    // Restore capacity if chore was not completed yet
+    if (!chore.completed) {
+      const choreWeight = chore.weight || calculateChoreWeight(chore.difficulty, chore.frequency);
+      const userIndex = db.users.findIndex(u => u.username === chore.roommate);
+      if (userIndex !== -1) {
+        db.users[userIndex].capacityScore += choreWeight;
+        db.users[userIndex].updatedAt = new Date().toISOString();
+      }
+    }
+    
     db.chores.splice(choreIndex, 1);
     saveDB(db);
     
@@ -216,10 +268,14 @@ router.patch('/:id/complete', (req, res) => {
       chore.completed = true;
       chore.completedAt = new Date().toISOString();
       
-      // Reward the pet owner with health increase
+      // Restore capacity when chore is completed
+      const choreWeight = chore.weight || calculateChoreWeight(chore.difficulty, chore.frequency);
       const userIndex = db.users.findIndex(u => u.username === chore.roommate);
       if (userIndex !== -1) {
+        // Reward the pet owner with health increase
         db.users[userIndex].petHealth = Math.min(db.users[userIndex].petHealth + 10, 100);
+        // Restore capacity score
+        db.users[userIndex].capacityScore += choreWeight;
         db.users[userIndex].updatedAt = new Date().toISOString();
       }
     }
