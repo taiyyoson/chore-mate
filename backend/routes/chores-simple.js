@@ -31,6 +31,23 @@ function generateId() {
   return Date.now().toString() + Math.random().toString(36).substr(2, 9);
 }
 
+function calculateDaysLeft(deadline) {
+  const now = new Date();
+  const deadlineDate = new Date(deadline);
+  const diffTime = deadlineDate - now;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return Math.max(0, diffDays); // Don't return negative days
+}
+
+function addDaysLeftToChore(chore) {
+  if (chore.deadline) {
+    chore.daysLeft = calculateDaysLeft(chore.deadline);
+  } else {
+    chore.daysLeft = 7; // Default for older chores without deadline
+  }
+  return chore;
+}
+
 // GET /api/chores - Get all chores
 router.get('/', (req, res) => {
   try {
@@ -41,6 +58,9 @@ router.get('/', (req, res) => {
     if (completed !== undefined) {
       chores = chores.filter(c => c.completed === (completed === 'true'));
     }
+    
+    // Add daysLeft to each chore
+    chores = chores.map(addDaysLeftToChore);
     
     res.json(chores);
   } catch (error) {
@@ -56,7 +76,7 @@ router.get('/:id', (req, res) => {
     if (!chore) {
       return res.status(404).json({ error: 'Chore not found' });
     }
-    res.json(chore);
+    res.json(addDaysLeftToChore(chore));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -65,7 +85,7 @@ router.get('/:id', (req, res) => {
 // POST /api/chores - Create new chore
 router.post('/', (req, res) => {
   try {
-    const { name, frequency, roommate, progress } = req.body;
+    const { name, frequency, roommate, progress, difficulty } = req.body;
     const db = loadDB();
     
     // Verify the roommate exists
@@ -74,6 +94,9 @@ router.post('/', (req, res) => {
       return res.status(400).json({ error: 'Roommate not found' });
     }
     
+    const now = new Date();
+    const deadline = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days from now
+    
     const chore = {
       id: generateId(),
       name,
@@ -81,15 +104,17 @@ router.post('/', (req, res) => {
       roommate,
       progress: progress || 0,
       completed: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      completedAt: null
+      difficulty: difficulty || 3,
+      createdAt: now.toISOString(),
+      updatedAt: now.toISOString(),
+      completedAt: null,
+      deadline: deadline.toISOString()
     };
     
     db.chores.push(chore);
     saveDB(db);
     
-    res.status(201).json(chore);
+    res.status(201).json(addDaysLeftToChore(chore));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -117,7 +142,7 @@ router.put('/:id', (req, res) => {
     };
     
     saveDB(db);
-    res.json(db.chores[choreIndex]);
+    res.json(addDaysLeftToChore(db.chores[choreIndex]));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -143,7 +168,7 @@ router.patch('/:id/reset', (req, res) => {
     };
     
     saveDB(db);
-    res.json(db.chores[choreIndex]);
+    res.json(addDaysLeftToChore(db.chores[choreIndex]));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -204,7 +229,7 @@ router.patch('/:id/complete', (req, res) => {
     
     saveDB(db);
     res.json({
-      chore: chore,
+      chore: addDaysLeftToChore(chore),
       petHealthUpdated: chore.completed
     });
   } catch (error) {
@@ -222,6 +247,9 @@ router.get('/user/:username', (req, res) => {
     if (completed !== undefined) {
       chores = chores.filter(c => c.completed === (completed === 'true'));
     }
+    
+    // Add daysLeft to each chore
+    chores = chores.map(addDaysLeftToChore);
     
     res.json(chores);
   } catch (error) {

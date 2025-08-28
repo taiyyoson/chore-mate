@@ -71,7 +71,6 @@ function App() {
     }
   };
 
-  // --- Render 
   // --- Login / logout handlers ---
   const handleLogin = async () => {
     try {
@@ -278,8 +277,8 @@ function App() {
                         <div className="chore-name">{chore.name}</div>
 
                         {/* days left for chore */}
-                        <div className="chore-days">
-                          <div className="days-number">{chore.daysLeft || 5}</div>
+                        <div className={`chore-days ${chore.daysLeft <= 2 ? 'urgent' : chore.daysLeft <= 4 ? 'warning' : ''}`}>
+                          <div className="days-number">{chore.daysLeft}</div>
                           <div className="days-label">days left</div>
                         </div>
                         
