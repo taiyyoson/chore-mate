@@ -109,28 +109,6 @@
       "completedAt": "2025-08-28T03:23:52.835Z"
     },
     {
-      "id": "1756353122142j4wsfyt6k",
-      "name": "Bath",
-      "frequency": 2,
-      "roommate": "Alina",
-      "progress": 2,
-      "completed": true,
-      "createdAt": "2025-08-28T03:52:02.142Z",
-      "updatedAt": "2025-08-28T03:53:35.161Z",
-      "completedAt": "2025-08-28T03:53:35.158Z"
-    },
-    {
-      "id": "17563532112142frub0f6l",
-      "name": "trash",
-      "frequency": 1,
-      "roommate": "Alina",
-      "progress": 1,
-      "completed": true,
-      "createdAt": "2025-08-28T03:53:31.214Z",
-      "updatedAt": "2025-08-28T03:53:33.056Z",
-      "completedAt": "2025-08-28T03:53:33.056Z"
-    },
-    {
       "id": "1756354712293bfpqxrc52",
       "name": "Trash",
       "frequency": 1,
@@ -151,47 +129,8 @@
       "createdAt": "2025-08-28T04:22:35.722Z",
       "updatedAt": "2025-08-28T04:22:35.722Z",
       "completedAt": null
-    },
-    {
-      "id": "17563616432969qu5wwaq1",
-      "name": "Test Timer Chore",
-      "frequency": 1,
-      "roommate": "Alice",
-      "progress": 0,
-      "completed": false,
-      "difficulty": 3,
-      "createdAt": "2025-08-28T06:14:03.296Z",
-      "updatedAt": "2025-08-28T06:14:03.296Z",
-      "completedAt": null,
-      "deadline": "2025-09-04T06:14:03.296Z"
-    },
-    {
-      "id": "1756364580069ghrvbmk0b",
-      "name": "Test Auto-Assignment",
-      "frequency": 2,
-      "roommate": "Alice",
-      "progress": 0,
-      "completed": false,
-      "difficulty": 4,
-      "weight": 8,
-      "createdAt": "2025-08-28T07:03:00.069Z",
-      "updatedAt": "2025-08-28T07:03:00.069Z",
-      "completedAt": null,
-      "deadline": "2025-09-04T07:03:00.069Z"
-    },
-    {
-      "id": "1756364594787qehhm62ue",
-      "name": "Test Auto-Assignment 2",
-      "frequency": 1,
-      "roommate": "Bob",
-      "progress": 1,
-      "completed": true,
-      "difficulty": 3,
-      "weight": 3,
-      "createdAt": "2025-08-28T07:03:14.787Z",
-      "updatedAt": "2025-08-28T07:03:22.055Z",
-      "completedAt": "2025-08-28T07:03:22.055Z",
-      "deadline": "2025-09-04T07:03:14.787Z"
     }
+    
+    
   ]
 }
