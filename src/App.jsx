@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Pet from "./Pet.jsx";
-import { userAPI, choreAPI } from "./services/api.js";
+import { userAPI, choreAPI, demoAPI } from "./services/api.js";
 import "./App.css";
 import "./Form.css";
 import logo from "./assets/logo.png";
@@ -53,23 +53,6 @@ function App() {
     loadData();
   }, []);
 
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      const [usersData, choresData] = await Promise.all([
-        userAPI.getAll(),
-        choreAPI.getAll(false) // Get incomplete chores
-      ]);
-      setUsers(usersData);
-      setChores(choresData);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load data from server');
-      console.error('Error loading data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // --- Login / logout handlers ---
   const handleLogin = async () => {
@@ -162,7 +145,83 @@ function App() {
       setError('Failed to delete chore');
     }
   };
+  
+  const [demoStatus, setDemoStatus] = useState({ demoOffsetDays: 0, currentDemoTime: '', actualTime: '' });
 
+  // Add this function to load demo status:
+  const loadDemoStatus = async () => {
+    try {
+      const status = await demoAPI.getStatus();
+      setDemoStatus(status);
+    } catch (err) {
+      console.error('Failed to load demo status:', err);
+    }
+  };
+  
+  // Update your loadData function to also load demo status:
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [usersData, choresData] = await Promise.all([
+        userAPI.getAll(),
+        choreAPI.getAll(false) // Get incomplete chores
+      ]);
+      setUsers(usersData);
+      setChores(choresData);
+      await loadDemoStatus(); // Add this line
+      setError(null);
+    } catch (err) {
+      setError('Failed to load data from server');
+      console.error('Error loading data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Update your handleAdvanceTime function:
+  const handleAdvanceTime = async () => {
+    try {
+      const result = await demoAPI.advanceTime();
+      
+      // Refresh chores to show updated days left
+      const updatedChores = await choreAPI.getAll(false);
+      setChores(updatedChores);
+      
+      // Update demo status
+      await loadDemoStatus();
+      
+      setError(null);
+    } catch (err) {
+      setError('Failed to advance time');
+    }
+  };
+  
+  // Update your handleResetTime function:
+  const handleResetTime = async () => {
+    try {
+      const result = await demoAPI.resetTime();
+      
+      // Refresh chores to show updated days left
+      const updatedChores = await choreAPI.getAll(false);
+      setChores(updatedChores);
+      
+      // Update demo status
+      await loadDemoStatus();
+      
+      setError(null);
+    } catch (err) {
+      setError('Failed to reset time');
+    }
+  };
+  const formatDisplayDate = (demoStatus) => {
+    if (demoStatus.currentDemoTime) {
+      const date = new Date(demoStatus.currentDemoTime);
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
+    // Fallback to current date if demo status isn't loaded yet
+    const now = new Date();
+    return `${now.getMonth() + 1}/${now.getDate()}`;
+  };
   if (loading) {
     return (
       <div className="app-container">
@@ -200,7 +259,7 @@ function App() {
           </button>
         </div>
       )}
-
+      
       {/* --- Login / Signup --- */}
       {!currentUser ? (
         <div className="login-signup">
@@ -248,6 +307,10 @@ function App() {
           <div className="main-column">
             {/* Pet at the top */}
             <div className="pet-container">
+              <div className="day-display">
+                  Day: {formatDisplayDate(demoStatus)}
+                  {demoStatus.demoOffsetDays > 0 && <span style={{ marginLeft: '8px', color: '#d35400' }}>(+{demoStatus.demoOffsetDays})</span>}
+              </div>
               <div className="health">health: {users.find(u => u.username === currentUser)?.petHealth}%</div>
               <Pet health={users.find(u => u.username === currentUser)?.petHealth} />
             </div>
@@ -396,8 +459,9 @@ function App() {
 
           {/* Bottom Navigation */}
           <div className="bottom-nav">
-            <button onClick={() => setShowForm(true)}>+ Chore</button>
-          </div>
+          <button onClick={() => setShowForm(true)}>+ Chore</button>
+          <button onClick={handleAdvanceTime}>⏭️ Fast Forward</button>
+          <button onClick={handleResetTime}>🔄 Reset</button>          </div>
         </>
       )}
     </div>

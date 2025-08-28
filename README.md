@@ -26,7 +26,7 @@ ChorePet transforms household chores into an engaging experience where completin
 - **Auto-Reassignment**: When chores are completed, they're automatically reassigned to different users
 - **Capacity Balancing**: Users have capacity scores that prevent overloading
 - **Difficulty & Frequency**: Chores have configurable difficulty (1-5) and frequency (1-7 times)
-- **Time Limits**: 7-day deadlines for chore completion
+- **Time Limits**: 7-day deadlines for chore completion from time of assignment
 
 
 ## Usage

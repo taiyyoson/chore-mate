@@ -11,34 +11,34 @@
     {
       "id": "2",
       "username": "Bob",
-      "petHealth": 10,
-      "capacityScore": 10,
+      "petHealth": 50,
+      "capacityScore": 16,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-28T07:03:22.055Z"
+      "updatedAt": "2025-08-28T23:49:11.888Z"
     },
     {
       "id": "3",
       "username": "Charlie",
       "petHealth": 40,
-      "capacityScore": 10,
+      "capacityScore": 0,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2025-08-28T23:49:11.888Z"
     },
     {
       "id": "1756283755595niq9k8kxv",
       "username": "Taiyo",
       "petHealth": 90,
-      "capacityScore": 10,
+      "capacityScore": 4,
       "createdAt": "2025-08-27T08:35:55.595Z",
-      "updatedAt": "2025-08-27T08:36:30.051Z"
+      "updatedAt": "2025-08-28T23:48:26.161Z"
     },
     {
       "id": "1756283975451wlzb83w2e",
       "username": "Alina",
       "petHealth": 100,
-      "capacityScore": 10,
+      "capacityScore": 2,
       "createdAt": "2025-08-27T08:39:35.451Z",
-      "updatedAt": "2025-08-28T04:18:33.556Z"
+      "updatedAt": "2025-08-28T23:48:42.820Z"
     }
   ],
   "chores": [
@@ -59,10 +59,11 @@
       "frequency": 2,
       "progress": 0,
       "completed": false,
-      "roommate": "Bob",
+      "roommate": "Charlie",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z",
-      "completedAt": null
+      "updatedAt": "2025-08-28T23:48:10.921Z",
+      "completedAt": null,
+      "deadline": "2025-09-04T23:48:10.920Z"
     },
     {
       "id": "17562837842902xr4yw3bb",
@@ -124,13 +125,53 @@
       "name": "Dishes",
       "frequency": 3,
       "roommate": "Alina",
-      "progress": 0,
+      "progress": 1,
       "completed": false,
       "createdAt": "2025-08-28T04:22:35.722Z",
-      "updatedAt": "2025-08-28T04:22:35.722Z",
+      "updatedAt": "2025-08-28T23:48:01.576Z",
       "completedAt": null
+    },
+    {
+      "id": "1756424901728ng7sys474",
+      "name": "Sweep",
+      "frequency": 2,
+      "roommate": "Taiyo",
+      "progress": 0,
+      "completed": false,
+      "difficulty": 3,
+      "weight": 6,
+      "createdAt": "2025-08-28T23:48:21.728Z",
+      "updatedAt": "2025-08-28T23:48:26.161Z",
+      "completedAt": null,
+      "deadline": "2025-09-04T23:48:26.161Z"
+    },
+    {
+      "id": "1756424920989au4z8ie2c",
+      "name": "sweep",
+      "frequency": 2,
+      "roommate": "Alina",
+      "progress": 0,
+      "completed": false,
+      "difficulty": 4,
+      "weight": 8,
+      "createdAt": "2025-08-28T23:48:40.988Z",
+      "updatedAt": "2025-08-28T23:48:42.820Z",
+      "completedAt": null,
+      "deadline": "2025-09-04T23:48:42.820Z"
+    },
+    {
+      "id": "1756424948308pipttkrwc",
+      "name": "trash",
+      "frequency": 3,
+      "roommate": "Charlie",
+      "progress": 0,
+      "completed": false,
+      "difficulty": 2,
+      "weight": 6,
+      "createdAt": "2025-08-28T23:49:08.308Z",
+      "updatedAt": "2025-08-28T23:49:11.888Z",
+      "completedAt": null,
+      "deadline": "2025-09-04T23:49:11.888Z"
     }
-    
-    
   ]
 }

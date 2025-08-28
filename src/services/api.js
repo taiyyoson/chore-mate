@@ -102,5 +102,22 @@ export const choreAPI = {
 
 // Health check
 export const healthAPI = {
-  check: () => apiRequest('/health'),
+check: () => apiRequest('/health'),
 };
+
+// Demo API functions for time manipulation
+export const demoAPI = {
+  // Advance demo time by 2 days
+  advanceTime: () => apiRequest('/chores/demo/advance-time', {
+    method: 'POST',
+  }),
+  
+  // Reset demo time back to normal
+  resetTime: () => apiRequest('/chores/demo/reset-time', {
+    method: 'POST',
+  }),
+  
+  // Get current demo time status
+  getStatus: () => apiRequest('/chores/demo/status'),
+};
+

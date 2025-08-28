@@ -9,6 +9,12 @@ const __dirname = path.dirname(__filename);
 const router = express.Router();
 const dbPath = path.join(__dirname, '..', 'data', 'db.json');
 
+//get demo-adjusted current time
+let demoTimeOffset = 0; 
+function getDemoTime() {
+  return new Date(Date.now() + demoTimeOffset);
+}
+
 // Helper functions
 function loadDB() {
   try {
@@ -32,7 +38,7 @@ function generateId() {
 }
 
 function calculateDaysLeft(deadline) {
-  const now = new Date();
+  const now = getDemoTime(); // account for demo manipulated time 
   const deadlineDate = new Date(deadline);
   const diffTime = deadlineDate - now;
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -339,5 +345,61 @@ router.get('/user/:username', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// POST /api/chores/demo/advance-time - Advance demo time by 2 days
+router.post('/demo/advance-time', (req, res) => {
+  try {
+    const twoDaysInMs = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
+    demoTimeOffset += twoDaysInMs;
+    
+    const db = loadDB();
+    // Update all chore daysLeft with new time
+    const updatedChores = db.chores.map(chore => addDaysLeftToChore(chore));
+    
+    res.json({ 
+      message: 'Time advanced by 2 days',
+      currentDemoOffset: Math.floor(demoTimeOffset / (24 * 60 * 60 * 1000)), // days
+      chores: updatedChores
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/chores/demo/reset-time - Reset demo time to normal
+router.post('/demo/reset-time', (req, res) => {
+  try {
+    demoTimeOffset = 0;
+    
+    const db = loadDB();
+    // Update all chore daysLeft with reset time
+    const updatedChores = db.chores.map(chore => addDaysLeftToChore(chore));
+    
+    res.json({ 
+      message: 'Demo time reset to normal',
+      currentDemoOffset: 0,
+      chores: updatedChores
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/chores/demo/status - Get current demo time status
+router.get('/demo/status', (req, res) => {
+  try {
+    const demoOffsetDays = Math.floor(demoTimeOffset / (24 * 60 * 60 * 1000));
+    const currentDemoTime = getDemoTime();
+    
+    res.json({
+      demoOffsetDays,
+      currentDemoTime: currentDemoTime.toISOString(),
+      actualTime: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 export default router;

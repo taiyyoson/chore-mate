@@ -362,6 +362,22 @@ body {
   flex-shrink: 0;
 }
 
+.day-display {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #2a2a2a;
+  font-weight: 600;
+  font-family: 'Michroma', sans-serif;
+  background-color: rgba(188, 191, 153, 0.5);
+  padding: 5px 15px;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.day-display:not([data-current]) {
+  background-color: rgba(230, 126, 34, 0.3);
+  color: #d35400;
+}
 @media (max-width: 500px) {
   .app-container {
     max-width: 100%;
