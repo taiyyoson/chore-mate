@@ -278,6 +278,33 @@ router.patch('/:id/complete', (req, res) => {
         db.users[userIndex].capacityScore += choreWeight;
         db.users[userIndex].updatedAt = new Date().toISOString();
       }
+      
+      // Auto-reassign chore to a different user
+      const currentAssignee = chore.roommate;
+      const availableUsers = db.users.filter(user => user.username !== currentAssignee);
+      
+      if (availableUsers.length > 0) {
+        const newAssignee = findBestAssigneeByCapacity(availableUsers, choreWeight);
+        
+        if (newAssignee) {
+          // Reset chore for new assignment
+          chore.progress = 0;
+          chore.completed = false;
+          chore.completedAt = null;
+          chore.roommate = newAssignee.username;
+          
+          // Set new deadline (7 days from now)
+          const now = new Date();
+          chore.deadline = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000)).toISOString();
+          
+          // Deduct capacity from new assignee
+          const newUserIndex = db.users.findIndex(u => u.username === newAssignee.username);
+          if (newUserIndex !== -1) {
+            db.users[newUserIndex].capacityScore = Math.max(0, db.users[newUserIndex].capacityScore - choreWeight);
+            db.users[newUserIndex].updatedAt = new Date().toISOString();
+          }
+        }
+      }
     }
     
     chore.updatedAt = new Date().toISOString();
