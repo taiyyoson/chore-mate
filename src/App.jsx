@@ -328,8 +328,10 @@ function App() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 50, scale: 0.9 }}
                       transition={{ duration: 0.3 }}
-                      className={`chore-card ${chore.completed ? "completed" : "pending"} ${chore.roommate === currentUser && !chore.completed ? "clickable" : ""}`}
-                      onClick={() => {
+                      className={`chore-card 
+                      ${chore.completed ? "completed" : "pending"} 
+                      ${chore.roommate === currentUser ? "my-chore" : ""} 
+                      ${chore.roommate === currentUser && !chore.completed ? "clickable" : ""}`}                      onClick={() => {
                         if (chore.roommate === currentUser && !chore.completed) {
                           completeChore(chore.id);
                         }
