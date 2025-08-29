@@ -1,3 +1,4 @@
+Alina Scantlebury & Taiyo Williamson
 # ChorePet 
 
 A gamified chore management app for roommates that motivates task completion through virtual pet care.
