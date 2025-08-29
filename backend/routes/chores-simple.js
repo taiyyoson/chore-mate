@@ -337,10 +337,13 @@ router.patch('/:id/complete', (req, res) => {
     // Increment progress
     chore.progress += 1;
     
+
+    let petHealthUpdated = false; 
     // Check if chore is now complete
     if (chore.progress >= chore.frequency) {
       chore.completed = true;
       chore.completedAt = new Date().toISOString();
+      petHealthUpdated = true;
       
       // Restore capacity when chore is completed
       const choreWeight = chore.weight || calculateChoreWeight(chore.difficulty, chore.frequency);
@@ -387,7 +390,7 @@ router.patch('/:id/complete', (req, res) => {
     saveDB(db);
     res.json({
       chore: addDaysLeftToChore(chore),
-      petHealthUpdated: chore.completed
+      petHealthUpdated: petHealthUpdated
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
