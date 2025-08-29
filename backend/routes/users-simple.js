@@ -41,6 +41,7 @@ router.get('/', (req, res) => {
   }
 });
 
+
 // GET /api/users/:username - Get user by username
 router.get('/:username', (req, res) => {
   try {
