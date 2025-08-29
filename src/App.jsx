@@ -1,5 +1,5 @@
 // --- Users / roommates ---
-// to log in use any user name below (Alice, Bob, Charlie)
+// to log in use any of these user names (Alice, Bob, Charlie, Alina, Taiyo)
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,7 +8,6 @@ import { userAPI, choreAPI, demoAPI } from "./services/api.js";
 import "./App.css";
 import "./Form.css";
 import logo from "./assets/logo.png";
-import background from "./assets/background.png";
 
 function App() {
   // --- Users / roommates ---
@@ -164,11 +163,11 @@ function App() {
       setLoading(true);
       const [usersData, choresData] = await Promise.all([
         userAPI.getAll(),
-        choreAPI.getAll(false) // Get incomplete chores
+        choreAPI.getAll(false) 
       ]);
       setUsers(usersData);
       setChores(choresData);
-      await loadDemoStatus(); // Add this line
+      await loadDemoStatus(); 
       setError(null);
     } catch (err) {
       setError('Failed to load data from server');
@@ -178,7 +177,7 @@ function App() {
     }
   };
   
-  // Update your handleAdvanceTime function:
+  // Update handleAdvanceTime function
   const handleAdvanceTime = async () => {
     try {
       const result = await demoAPI.advanceTime();
@@ -303,7 +302,7 @@ function App() {
             <button className="small-button" onClick={handleLogout}>Log Out</button>
           </div>
 
-          {/* ---- ONE COLUMN MAIN STACK ---- */}
+          {/* ---- MAIN COLUMN ---- */}
           <div className="main-column">
             {/* Pet at the top */}
             <div className="pet-container">
@@ -328,8 +327,10 @@ function App() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 50, scale: 0.9 }}
                       transition={{ duration: 0.3 }}
-                      className={`chore-card ${chore.completed ? "completed" : "pending"} ${chore.roommate === currentUser && !chore.completed ? "clickable" : ""}`}
-                      onClick={() => {
+                      className={`chore-card 
+                      ${chore.completed ? "completed" : "pending"} 
+                      ${chore.roommate === currentUser ? "my-chore" : ""} 
+                      ${chore.roommate === currentUser && !chore.completed ? "clickable" : ""}`}                      onClick={() => {
                         if (chore.roommate === currentUser && !chore.completed) {
                           completeChore(chore.id);
                         }
@@ -356,7 +357,7 @@ function App() {
                 </AnimatePresence>
               </div>
 
-              {/*Chore Form - NO ROOMMATE SELECTION */}
+              {/*Chore Form*/}
               <AnimatePresence>
                 {showForm && (
                   <motion.div
