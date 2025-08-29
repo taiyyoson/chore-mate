@@ -11,34 +11,38 @@
     {
       "id": "2",
       "username": "Bob",
-      "petHealth": 90,
-      "capacityScore": 20,
+      "petHealth": 45,
+      "capacityScore": 10,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T05:24:59.772Z"
+      "updatedAt": "2025-08-31T16:20:28.504Z",
+      "lastHealthDecrementDate": "2025-08-31"
     },
     {
       "id": "3",
       "username": "Charlie",
-      "petHealth": 50,
-      "capacityScore": 0,
+      "petHealth": 35,
+      "capacityScore": 6,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T02:39:18.058Z"
+      "updatedAt": "2025-08-31T16:20:28.504Z",
+      "lastHealthDecrementDate": "2025-08-31"
     },
     {
       "id": "1756283755595niq9k8kxv",
       "username": "Taiyo",
-      "petHealth": 90,
-      "capacityScore": 1,
+      "petHealth": 75,
+      "capacityScore": 4,
       "createdAt": "2025-08-27T08:35:55.595Z",
-      "updatedAt": "2025-08-29T04:40:05.279Z"
+      "updatedAt": "2025-08-31T16:20:28.504Z",
+      "lastHealthDecrementDate": "2025-08-31"
     },
     {
       "id": "1756283975451wlzb83w2e",
       "username": "Alina",
-      "petHealth": 100,
-      "capacityScore": 5,
+      "petHealth": 80,
+      "capacityScore": 2,
       "createdAt": "2025-08-27T08:39:35.451Z",
-      "updatedAt": "2025-08-29T05:24:59.772Z"
+      "updatedAt": "2025-08-31T16:20:28.504Z",
+      "lastHealthDecrementDate": "2025-08-31"
     }
   ],
   "chores": [
@@ -59,11 +63,11 @@
       "frequency": 2,
       "progress": 0,
       "completed": false,
-      "roommate": "Charlie",
+      "roommate": "Bob",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T02:39:18.058Z",
+      "updatedAt": "2025-08-29T16:18:38.860Z",
       "completedAt": null,
-      "deadline": "2025-09-05T02:39:18.058Z"
+      "deadline": "2025-09-05T16:18:38.860Z"
     },
     {
       "id": "17562837842902xr4yw3bb",

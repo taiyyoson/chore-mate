@@ -54,6 +54,70 @@ function addDaysLeftToChore(chore) {
   return chore;
 }
 
+function processHealthDecrements() {
+  const db = loadDB();
+  const now = getDemoTime();
+  const todayStr = now.toISOString().split('T')[0]; // YYYY-MM-DD format
+  
+  // Find all incomplete chores (regardless of deadline)
+  const incompleteChores = db.chores.filter(chore => {
+    return !chore.completed; // Any incomplete chore
+  });
+  
+  // Group incomplete chores by user
+  const choresByUser = {};
+  incompleteChores.forEach(chore => {
+    if (!choresByUser[chore.roommate]) {
+      choresByUser[chore.roommate] = [];
+    }
+    choresByUser[chore.roommate].push(chore);
+  });
+  
+  let healthUpdates = [];
+  
+  // Processing each user with incomplete chores
+  Object.keys(choresByUser).forEach(username => {
+    const userIndex = db.users.findIndex(u => u.username === username);
+    if (userIndex === -1) return;
+    
+    const user = db.users[userIndex];
+    const userChores = choresByUser[username];
+    
+    // Check if we already processed health decrement today
+    const lastDecrementDate = user.lastHealthDecrementDate;
+    if (lastDecrementDate === todayStr) {
+      return; // Already processed today
+    }
+    
+    // Calculate total health decrement (5% per incomplete chore)
+    const decrementPerChore = 5; // 5% per chore
+    const totalDecrement = userChores.length * decrementPerChore;
+    
+    // Apply health decrement
+    const currentHealth = user.petHealth || 100;
+    const newHealth = Math.max(0, currentHealth - totalDecrement);
+    
+    // Update user
+    db.users[userIndex] = {
+      ...user,
+      petHealth: newHealth,
+      lastHealthDecrementDate: todayStr,
+      updatedAt: now.toISOString()
+    };
+    
+    healthUpdates.push({
+      username: username,
+      previousHealth: currentHealth,
+      newHealth: newHealth,
+      decrementAmount: totalDecrement,
+      incompleteChores: userChores.length
+    });
+  });
+  
+  saveDB(db);
+  return healthUpdates;
+}
+
 function calculateChoreWeight(difficulty, frequency) {
   // Weight = difficulty (1-5) × frequency (1-7)
   // Range: 1 (easy, once/week) to 35 (hardest, daily)
@@ -87,6 +151,10 @@ function findBestAssigneeByCapacity(users, choreWeight) {
 router.get('/', (req, res) => {
   try {
     const { completed } = req.query;
+    
+    // Process health decrements for incomplete chores
+    processHealthDecrements();
+    
     const db = loadDB();
     let chores = db.chores;
     
@@ -269,10 +337,13 @@ router.patch('/:id/complete', (req, res) => {
     // Increment progress
     chore.progress += 1;
     
+
+    let petHealthUpdated = false; 
     // Check if chore is now complete
     if (chore.progress >= chore.frequency) {
       chore.completed = true;
       chore.completedAt = new Date().toISOString();
+      petHealthUpdated = true;
       
       // Restore capacity when chore is completed
       const choreWeight = chore.weight || calculateChoreWeight(chore.difficulty, chore.frequency);
@@ -319,7 +390,7 @@ router.patch('/:id/complete', (req, res) => {
     saveDB(db);
     res.json({
       chore: addDaysLeftToChore(chore),
-      petHealthUpdated: chore.completed
+      petHealthUpdated: petHealthUpdated
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -346,11 +417,17 @@ router.get('/user/:username', (req, res) => {
   }
 });
 
+
+
+
 // POST /api/chores/demo/advance-time - Advance demo time by 2 days
 router.post('/demo/advance-time', (req, res) => {
   try {
     const twoDaysInMs = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
     demoTimeOffset += twoDaysInMs;
+    
+    // Process health decrements for incomplete chores after time advancement
+    const healthUpdates = processHealthDecrements();
     
     const db = loadDB();
     // Update all chore daysLeft with new time
@@ -359,7 +436,8 @@ router.post('/demo/advance-time', (req, res) => {
     res.json({ 
       message: 'Time advanced by 2 days',
       currentDemoOffset: Math.floor(demoTimeOffset / (24 * 60 * 60 * 1000)), // days
-      chores: updatedChores
+      chores: updatedChores,
+      healthUpdates: healthUpdates
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -400,6 +478,7 @@ router.get('/demo/status', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 export default router;
