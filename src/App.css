@@ -229,7 +229,21 @@ body {
   color: #e74c3c; /* Red for urgent */
   animation: pulse 1.5s infinite;
 }
+/* Highlight chores that belong to the logged-in user */
+.chore-card.my-chore {
+  background-color: rgba(136, 239, 76); 
+}
 
+.chore-card.my-chore.clickable {
+  background-color: #627b51;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.chore-card.my-chore.clickable:hover {
+  transform: scale(1.02);
+  background-color: rgba(33, 148, 90, 0.3);
+}
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.7; }
