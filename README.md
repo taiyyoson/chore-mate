@@ -9,9 +9,9 @@ A gamified chore management app for roommates that motivates task completion thr
 ChorePet transforms household chores into an engaging experience where completing tasks keeps a shared virtual pet healthy and happy. 
 
 ## Developer Roles
-Frontend - Alina Scantlebury
+Frontend - **Alina Scantlebury**
 
-Backend - Taiyo Williamson
+Backend - **Taiyo Williamson**
 
 ## Features
 
