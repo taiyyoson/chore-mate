@@ -10,6 +10,7 @@ ChorePet transforms household chores into an engaging experience where completin
 
 ## Developer Roles
 Frontend - Alina Scantlebury
+
 Backend - Taiyo Williamson
 
 ## Features
