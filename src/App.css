@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Michroma', sans-serif;
-  background-color: #dedfc4; /* earthy beige */
+  background-color: #dedfc4; 
   color: #2a2a2a;
   overflow-x: hidden;
 }
@@ -11,7 +11,7 @@ body {
   text-align: center;
   position: relative;
   min-height: 100vh;
-  max-width: 414px; /* iPhone width */
+  max-width: 414px; 
   margin: 0 auto;
   background-color: #dedfc4;
 }
@@ -65,23 +65,6 @@ body {
   margin-left: 6px;
 }
 
-.chore-button {
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 400;
-  background-color: #8db373;
-  color: #2a2a2a;
-  border: none;
-  cursor: pointer;
-  font-family: 'Michroma', sans-serif;
-  margin: 10px;
-}
-
-.add-chore-margin {
-  margin-top: 20px;
-}
-
 .log-button {
   font-size: 20px;
   padding: 12px 24px;
@@ -127,44 +110,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 20px 120px 20px; /* Added bottom padding for fixed nav */
+  padding: 20px 20px 120px 20px;
   position: relative;
   z-index: 1;
 }
 
 /* --- Pet Section --- */
-.pet-section {
-  padding: 2rem;
-}
-
-.pet-panel {
-  width: 100%;
-  max-width: 300px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 280px;
-  margin-bottom: 30px;
-}
-
-
-
 .pet-container {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.greeting {
-  color: #2a2a2a;
-  text-align: center;
-  font-family: 'Michroma', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  margin-bottom: 20px;
 }
 
 .health {
@@ -215,27 +172,28 @@ body {
 .chore-card.clickable {
   cursor: pointer;
 }
-.chore-days{
+
+.chore-days {
   flex: 1;
   text-align: left;
   font-size: 15px; 
 }
 
 .chore-days.warning {
-  color: #e67e22; /* Orange for warning */
+  color: #ca6d1c;
 }
 
 .chore-days.urgent {
-  color: #e74c3c; /* Red for urgent */
+  color: #e74c3c;
   animation: pulse 1.5s infinite;
 }
-/* Highlight chores that belong to the logged-in user */
+
 .chore-card.my-chore {
   background-color: rgba(136, 239, 76); 
 }
 
 .chore-card.my-chore.clickable {
-  background-color: #627b51;
+  background-color: #8db373;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -244,14 +202,13 @@ body {
   transform: scale(1.02);
   background-color: rgba(33, 148, 90, 0.3);
 }
+
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.7; }
   100% { opacity: 1; }
 }
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
-}
+
 .chore-card.clickable:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
@@ -296,10 +253,6 @@ body {
   font-size: 16px;
 }
 
-.separator {
-  display: none; /* Remove separator */
-}
-
 .roommate-name {
   font-size: 14px;
   font-weight: 600;
@@ -336,7 +289,7 @@ body {
   justify-content: center;
 }
 
-/* --- Bottom Navigation (like in design) --- */
+/* --- Bottom Navigation --- */
 .bottom-nav {
   position: fixed;
   bottom: 20px;
@@ -366,16 +319,6 @@ body {
   font-weight: 400;
 }
 
-.bottom-nav .nav-circle {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: #2a2a2a;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
 .day-display {
   font-size: 14px;
   margin-bottom: 5px;
@@ -392,6 +335,7 @@ body {
   background-color: rgba(230, 126, 34, 0.3);
   color: #d35400;
 }
+
 @media (max-width: 500px) {
   .app-container {
     max-width: 100%;
