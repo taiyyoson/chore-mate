@@ -11,34 +11,34 @@
     {
       "id": "2",
       "username": "Bob",
-      "petHealth": 50,
-      "capacityScore": 0,
+      "petHealth": 90,
+      "capacityScore": 20,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T02:29:36.788Z"
+      "updatedAt": "2025-08-29T05:24:59.772Z"
     },
     {
       "id": "3",
       "username": "Charlie",
       "petHealth": 50,
-      "capacityScore": 6,
+      "capacityScore": 0,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T02:33:06.471Z"
+      "updatedAt": "2025-08-29T02:39:18.058Z"
     },
     {
       "id": "1756283755595niq9k8kxv",
       "username": "Taiyo",
       "petHealth": 90,
-      "capacityScore": 4,
+      "capacityScore": 1,
       "createdAt": "2025-08-27T08:35:55.595Z",
-      "updatedAt": "2025-08-28T23:48:26.161Z"
+      "updatedAt": "2025-08-29T04:40:05.279Z"
     },
     {
       "id": "1756283975451wlzb83w2e",
       "username": "Alina",
       "petHealth": 100,
-      "capacityScore": 16,
+      "capacityScore": 5,
       "createdAt": "2025-08-27T08:39:35.451Z",
-      "updatedAt": "2025-08-29T02:33:06.471Z"
+      "updatedAt": "2025-08-29T05:24:59.772Z"
     }
   ],
   "chores": [
@@ -59,11 +59,11 @@
       "frequency": 2,
       "progress": 0,
       "completed": false,
-      "roommate": "Alina",
+      "roommate": "Charlie",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2025-08-29T02:33:06.471Z",
+      "updatedAt": "2025-08-29T02:39:18.058Z",
       "completedAt": null,
-      "deadline": "2025-09-05T02:33:06.471Z"
+      "deadline": "2025-09-05T02:39:18.058Z"
     },
     {
       "id": "17562837842902xr4yw3bb",
@@ -91,13 +91,13 @@
       "id": "1756284038401m3tpfgsy5",
       "name": "Restock cleaning supplies",
       "frequency": 1,
-      "roommate": "Bob",
+      "roommate": "Taiyo",
       "progress": 0,
       "completed": false,
       "createdAt": "2025-08-27T08:40:38.401Z",
-      "updatedAt": "2025-08-29T02:29:34.156Z",
+      "updatedAt": "2025-08-29T04:40:05.279Z",
       "completedAt": null,
-      "deadline": "2025-09-05T02:29:34.154Z"
+      "deadline": "2025-09-05T04:40:05.279Z"
     },
     {
       "id": "1756351429677lsvgpzob7",
@@ -125,13 +125,13 @@
       "id": "1756354955721pc9bouxox",
       "name": "Dishes",
       "frequency": 3,
-      "roommate": "Bob",
+      "roommate": "Alina",
       "progress": 0,
       "completed": false,
       "createdAt": "2025-08-28T04:22:35.722Z",
-      "updatedAt": "2025-08-29T02:29:35.610Z",
+      "updatedAt": "2025-08-29T05:24:59.772Z",
       "completedAt": null,
-      "deadline": "2025-09-05T02:29:35.610Z"
+      "deadline": "2025-09-05T05:24:59.772Z"
     },
     {
       "id": "1756424901728ng7sys474",
@@ -151,27 +151,27 @@
       "id": "1756424920989au4z8ie2c",
       "name": "sweep",
       "frequency": 2,
-      "roommate": "Bob",
+      "roommate": "Alina",
       "progress": 0,
       "completed": false,
       "difficulty": 4,
       "weight": 8,
       "createdAt": "2025-08-28T23:48:40.988Z",
-      "updatedAt": "2025-08-29T02:29:36.788Z",
+      "updatedAt": "2025-08-29T04:41:19.881Z",
       "completedAt": null,
-      "deadline": "2025-09-05T02:29:36.788Z"
+      "deadline": "2025-09-05T04:41:19.881Z"
     },
     {
       "id": "1756424948308pipttkrwc",
       "name": "trash",
       "frequency": 3,
       "roommate": "Charlie",
-      "progress": 0,
+      "progress": 2,
       "completed": false,
       "difficulty": 2,
       "weight": 6,
       "createdAt": "2025-08-28T23:49:08.308Z",
-      "updatedAt": "2025-08-28T23:49:11.888Z",
+      "updatedAt": "2025-08-29T02:39:06.054Z",
       "completedAt": null,
       "deadline": "2025-09-04T23:49:11.888Z"
     }
